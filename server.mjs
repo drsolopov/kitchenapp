@@ -34,4 +34,15 @@ const server = http.createServer(async (req, res) => {
     res.end('not found: ' + rel);
   }
 });
-server.listen(PORT, '127.0.0.1', () => console.log(`kitchencoach app http://127.0.0.1:${PORT}`));
+let currentPort = PORT;
+server.on('error', (error) => {
+  if (error.code === 'EADDRINUSE' && !process.env.PORT && currentPort < PORT + 20) {
+    currentPort += 1;
+    console.warn(`port ${currentPort - 1} is busy; trying ${currentPort}`);
+    server.listen(currentPort, '127.0.0.1');
+    return;
+  }
+  console.error(`could not start KitchenCoach on port ${currentPort}: ${error.message}`);
+  process.exit(1);
+});
+server.listen(currentPort, '127.0.0.1', () => console.log(`kitchencoach app http://127.0.0.1:${currentPort}`));
