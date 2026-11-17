@@ -10,7 +10,7 @@ Install Node.js, then open a terminal in this folder and run:
 node server.mjs
 ```
 
-Open [http://127.0.0.1:4401](http://127.0.0.1:4401). The app uses plain JavaScript modules and has no package install step.
+Open the URL printed in the terminal (normally [http://127.0.0.1:4401](http://127.0.0.1:4401)). If that port is busy, the server tries the next available port automatically. The app uses plain JavaScript modules and has no package install step.
 
 ## What’s included
 
